@@ -52,16 +52,43 @@ export default function App() {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'lightblue',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 20,
   },
 
-  input:{
-    borderWidth: 1,
-    borderColor: 'darkblue'
-  }
+  input: {
+    width: '80%',
+    padding: 10,
+    marginBottom: 20,
+    borderWidth: 2,
+    borderColor: 'darkblue',
+    fontSize: 16,
+    backgroundColor: '#fff',
+    color: '#333',
+  },
+
+  button: {
+    padding: 10,
+    backgroundColor: 'pink',
+    borderRadius: 5,
+    width: '80%',
+  },
+
+  tarefaText: {
+    fontSize: 18,
+    color: '#333',
+  },
+
+  deleteButton: {
+    backgroundColor: 'aquamarine',
+    padding: 5,
+    borderRadius: 5,
+    color: 'white',
+  },
 });
