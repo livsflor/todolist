@@ -1,57 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import _tarefa from './types/tarefa';
 import Tarefa from './components/Tarefa';
 
 export default function App() {
-  const [novaTarefa, setNovaTarefa] = useState<string>();
+  const [novaTarefa, setNovaTarefa] = useState<string>('');
   const [tarefas, setTarefas] = useState<_tarefa[]>([]);
 
-  function adicionarTarefa()
-  {
-    if(novaTarefa == undefined)
-    {
+  function adicionarTarefa(){
+    if(novaTarefa == ''){
       alert("Insira um texto");
       return;
     }
-
-    let tarefa : _tarefa = 
-    {
+    let tarefa : _tarefa = {
       id : tarefas.length+1,
       texto : novaTarefa
     };
-
     setTarefas([...tarefas, tarefa]);
   }
 
   function mostrarTarefas(){
-    let saida = tarefas.map(t => <Tarefa dados={t} handleDeletePress/>);
+    let saida = tarefas.map(t => <Tarefa key={t.id} dados={t} handleDeletePress={excluir} />);
     return saida;
   }
 
-  function excluir(id :number)
-  {
-    let achou = tarefas.find(t => t.id == id);
-    if(achou == undefined){
-      alert("Nao encontrado");
-      return;
-    }
-    let temp = tarefas;
-    let i = temp.indexOf(achou);
-    temp.splice(i, 1);
-    setTarefas(temp);
+  function excluir(id :number){
+    let f = tarefas.filter(t => t.id != id);
+    setTarefas(f);
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} key="main">
       <TextInput style={styles.input} value={novaTarefa} onChangeText={setNovaTarefa}/>
-      <Button color="pink" title='Adicionar tarefa' onPress={adicionarTarefa}/>
+      <Button title='Adicionar tarefa' onPress={adicionarTarefa}/>
       {mostrarTarefas()}
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -74,10 +59,17 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    padding: 10,
-    backgroundColor: 'pink',
-    borderRadius: 5,
+    padding: 12,
+    backgroundColor: '#FF6347', 
+    borderRadius: 30, 
     width: '80%',
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    shadowColor: '#000', 
+    shadowOffset: { width: 0, height: 4 }, 
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5, 
   },
 
   tarefaText: {
